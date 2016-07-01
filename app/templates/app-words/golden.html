@@ -1,1 +1,9 @@
-<h3>Golden</h3>
+<div>
+	<div>
+		<h3>Golden</h3>
+
+		<div ng-repeat="word in vm.words | limitTo: 5">
+			<h3>{{word.word}}</h3>
+		</div>
+	</div>
+</div>

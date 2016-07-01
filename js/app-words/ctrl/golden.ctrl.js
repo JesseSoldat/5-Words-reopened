@@ -7,6 +7,8 @@ let GoldenCtrl = function($cookies, $state, WordService) {
 		let golden = 'golden';
 		WordService.getGolden(golden).then( (res) => {
 			console.log(res);
+
+			vm.words = res.data;
 		})
 	};
 

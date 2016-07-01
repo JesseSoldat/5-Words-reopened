@@ -12,6 +12,11 @@ let config = function($urlRouterProvider, $stateProvider) {
 			controller: 'HomeCtrl as vm', 
 			templateUrl: 'templates/app-layout/home.html'
 		})
+		.state('register', {
+			url: '/register',
+			controller: 'RegisterCtrl as vm',
+			templateUrl: 'templates/app-words/register.html'
+		})
 		.state('root.golden', {
 			url: '/golden',
 			views: {

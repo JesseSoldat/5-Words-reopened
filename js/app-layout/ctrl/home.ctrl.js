@@ -4,6 +4,7 @@ let HomeCtrl = function(HomeService, $cookies, $state) {
 
 	vm.title = 'Five Words';
 	vm.login = login;
+	vm.register = register;
 
 
 	function login(user) {
@@ -15,7 +16,16 @@ let HomeCtrl = function(HomeService, $cookies, $state) {
 			$cookies.put('username', res.data.username);
 			
 			$state.go('root.golden');
-		})
+		});
+	}
+
+	function register(user) {
+		HomeService.register(user).then( (res) => {
+			$cookies.put('authToken', res.data.access_token);
+			$cookies.put('username', res.data.username);
+			console.log(res);
+			$state.go('register');
+		});
 	}
 };
 
