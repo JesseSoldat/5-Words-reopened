@@ -68,7 +68,7 @@ var _constantsServerConstant2 = _interopRequireDefault(_constantsServerConstant)
 
 _angular2['default'].module('app.core', ['ui.router']).config(_config2['default']).constant('SERVER', _constantsServerConstant2['default']);
 
-},{"./config":1,"./constants/server.constant":2,"angular":14,"angular-ui-router":12}],4:[function(require,module,exports){
+},{"./config":1,"./constants/server.constant":2,"angular":15,"angular-ui-router":13}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -120,7 +120,7 @@ var _servicesHomeService2 = _interopRequireDefault(_servicesHomeService);
 
 _angular2['default'].module('app.layout', ['ngCookies']).controller('HomeCtrl', _ctrlHomeCtrl2['default']).service('HomeService', _servicesHomeService2['default']);
 
-},{"./ctrl/home.ctrl":4,"./services/home.service":6,"angular":14,"angular-cookies":11}],6:[function(require,module,exports){
+},{"./ctrl/home.ctrl":4,"./services/home.service":6,"angular":15,"angular-cookies":12}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -143,10 +143,21 @@ module.exports = exports['default'];
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+	value: true
 });
-var GoldenCtrl = function GoldenCtrl($cookies) {};
-GoldenCtrl.$inject = ['$cookies'];
+var GoldenCtrl = function GoldenCtrl($cookies, $state, WordService) {
+	var vm = this;
+
+	getGolden();
+
+	function getGolden() {
+		var golden = 'golden';
+		WordService.getGolden(golden).then(function (res) {
+			console.log(res);
+		});
+	};
+};
+GoldenCtrl.$inject = ['$cookies', '$state', 'WordService'];
 
 exports['default'] = GoldenCtrl;
 module.exports = exports['default'];
@@ -166,9 +177,42 @@ var _ctrlGoldenCtrl = require('./ctrl/golden.ctrl');
 
 var _ctrlGoldenCtrl2 = _interopRequireDefault(_ctrlGoldenCtrl);
 
-_angular2['default'].module('app.words', ['ngCookies']).controller('GoldenCtrl', _ctrlGoldenCtrl2['default']);
+var _servicesWordService = require('./services/word.service');
 
-},{"./ctrl/golden.ctrl":7,"angular":14,"angular-cookies":11}],9:[function(require,module,exports){
+var _servicesWordService2 = _interopRequireDefault(_servicesWordService);
+
+_angular2['default'].module('app.words', ['ngCookies']).controller('GoldenCtrl', _ctrlGoldenCtrl2['default']).service('WordService', _servicesWordService2['default']);
+
+},{"./ctrl/golden.ctrl":7,"./services/word.service":9,"angular":15,"angular-cookies":12}],9:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var WordService = function WordService($http, SERVER, $cookies) {
+
+	this.getGolden = getGolden;
+
+	function getGolden(golden) {
+		var auth = $cookies.get('authToken');
+		var id = $cookies.get('userId');
+
+		return $http({
+			url: SERVER.URL + 'words/user/' + golden,
+			method: 'GET',
+			headers: {
+				access_token: auth
+			}
+		});
+	}
+};
+
+WordService.$inject = ['$http', 'SERVER', '$cookies'];
+
+exports['default'] = WordService;
+module.exports = exports['default'];
+
+},{}],10:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -185,7 +229,7 @@ require('./app-words/index');
 
 _angular2['default'].module('app', ['app.core', 'app.layout', 'app.words']);
 
-},{"./app-core/index":3,"./app-layout/index":5,"./app-words/index":8,"angular":14}],10:[function(require,module,exports){
+},{"./app-core/index":3,"./app-layout/index":5,"./app-words/index":8,"angular":15}],11:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -509,11 +553,11 @@ angular.module('ngCookies').provider('$$cookieWriter', function $$CookieWriterPr
 
 })(window, window.angular);
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 require('./angular-cookies');
 module.exports = 'ngCookies';
 
-},{"./angular-cookies":10}],12:[function(require,module,exports){
+},{"./angular-cookies":11}],13:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.18
@@ -5053,7 +5097,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -36527,11 +36571,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":13}]},{},[9])
+},{"./angular":14}]},{},[10])
 
 
 //# sourceMappingURL=main.js.map
