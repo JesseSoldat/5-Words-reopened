@@ -1,2 +1,31 @@
-<h5>Home</h5>
-<h6>{{vm.test}}</h6>
+<div>
+	<div>
+		<h3>{{vm.title}}</h3>
+
+	</div>
+	<h3>Matching People by Words!</h3>
+	<div>
+		<h3>Login</h3>
+		<form name="loginForm" ng-submit="vm.login(userLog)">
+			<input type="text" placeholder="User Name" ng-model="userLog.username" required>
+			<input type="text" placeholder="Password" ng-model="userLog.password" required>
+			<br>
+			<button>Login</button>
+		</form>
+	</div>
+	<br>
+	<br>
+
+	<div>
+		<h3>Register</h3>
+		<form>
+			<input>
+			<input>
+			<input>
+			<br>
+			<button>Register</button>
+		</form>
+	</div>
+
+
+</div>

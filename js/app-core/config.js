@@ -12,6 +12,19 @@ let config = function($urlRouterProvider, $stateProvider) {
 			controller: 'HomeCtrl as vm', 
 			templateUrl: 'templates/app-layout/home.html'
 		})
+		.state('root.golden', {
+			url: '/golden',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-words/dash.side.html'
+
+				},
+				content: {
+					controller: 'GoldenCtrl as vm',
+					templateUrl: 'templates/app-words/golden.html'
+				}
+			}
+		})
 
 
 
