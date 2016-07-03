@@ -10,6 +10,7 @@ var config = function config($urlRouterProvider, $stateProvider) {
 
 	$stateProvider.state('root', {
 		abstract: true,
+		controller: 'HomeCtrl as vm',
 		templateUrl: 'templates/app-layout/layout.html'
 	}).state('home', {
 		url: '/',
@@ -84,6 +85,7 @@ var HomeCtrl = function HomeCtrl(HomeService, $cookies, $state) {
 
 	vm.title = 'Five Words';
 	vm.login = login;
+	vm.logout = logout;
 	vm.register = register;
 
 	function login(user) {
@@ -96,6 +98,14 @@ var HomeCtrl = function HomeCtrl(HomeService, $cookies, $state) {
 
 			$state.go('root.golden');
 		});
+	}
+
+	function logout() {
+		$cookies.remove('authToken');
+		$cookies.remove('userId');
+		$cookies.remove('username');
+
+		$state.go('home');
 	}
 
 	function register(user) {
@@ -200,7 +210,17 @@ Object.defineProperty(exports, '__esModule', {
 var GoldenCtrl = function GoldenCtrl($cookies, $state, WordService) {
 	var vm = this;
 
+	checkAuth();
 	getGolden();
+
+	function checkAuth() {
+		var auth = $cookies.get('authToken');
+		if (auth) {
+			console.log('You have a token!');
+		} else {
+			$state.go('home');
+		}
+	}
 
 	function getGolden() {
 		var golden = 'golden';

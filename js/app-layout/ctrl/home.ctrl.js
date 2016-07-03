@@ -4,6 +4,7 @@ let HomeCtrl = function(HomeService, $cookies, $state) {
 
 	vm.title = 'Five Words';
 	vm.login = login;
+	vm.logout = logout;
 	vm.register = register;
 
 
@@ -17,6 +18,14 @@ let HomeCtrl = function(HomeService, $cookies, $state) {
 			
 			$state.go('root.golden');
 		});
+	}
+
+	function logout() {
+		$cookies.remove('authToken');
+		$cookies.remove('userId');
+		$cookies.remove('username');
+		
+		$state.go('home');
 	}
 
 	function register(user) {
