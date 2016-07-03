@@ -31,6 +31,24 @@ let config = function($urlRouterProvider, $stateProvider) {
 				}
 			}
 		})
+		.state('root.add', {
+			url: '/add/:category',
+			controller: 'AddCtrl as vm',
+			templateUrl: 'templates/app-words/add.html'
+		})
+		.state('root.travel', {
+			url: '/travel',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-words/dash.side.html'
+				},
+				content: {
+					controller: 'TravelCtrl as vm',
+					templateUrl: 'templates/app-words/travel.html'
+				}
+			}
+			
+		})
 
 
 

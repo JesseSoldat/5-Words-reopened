@@ -2,6 +2,7 @@ let WordService = function($http, SERVER, $cookies) {
 
 	this.getGolden = getGolden;
 	this.addWords = addWords;
+	this.getWords = getWords;
 
 	function getGolden(golden) {
 		let auth = $cookies.get('authToken');
@@ -34,6 +35,19 @@ let WordService = function($http, SERVER, $cookies) {
 			request: request,
 			category: category
 		}
+	}
+
+	function getWords(category) {
+		let auth = $cookies.get('authToken');
+	
+
+		return $http({
+			url: SERVER.URL + 'words/user/' + category,
+			method: 'GET',
+			headers: {
+				access_token: auth
+			}
+		});
 	}
 };
 
