@@ -1,6 +1,7 @@
 let TravelCtrl = function(WordService, $state, $cookies) {
 
 	let vm = this;
+	this.matchWords = matchWords;
 
 	getWords();
 
@@ -19,6 +20,10 @@ let TravelCtrl = function(WordService, $state, $cookies) {
 
 
 		});
+	}
+
+	function matchWords(words, category) {
+		$state.go('root.match', {category})
 	}
 
 };

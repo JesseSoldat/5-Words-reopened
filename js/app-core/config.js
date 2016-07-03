@@ -36,6 +36,11 @@ let config = function($urlRouterProvider, $stateProvider) {
 			controller: 'AddCtrl as vm',
 			templateUrl: 'templates/app-words/add.html'
 		})
+		.state('root.match', {
+			url: '/match/:category',
+			controller: 'MatchCtrl as vm',
+			templateUrl: 'templates/app-words/match.html'
+		})
 		.state('root.travel', {
 			url: '/travel',
 			views: {

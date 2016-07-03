@@ -1,13 +1,17 @@
 let WordService = function($http, SERVER, $cookies) {
+	let auth = $cookies.get('authToken');
+	let id = $cookies.get('userId');
 
 	this.getGolden = getGolden;
 	this.addWords = addWords;
 	this.getWords = getWords;
+	this.searchWords = searchWords;
+
+	let tempWords;
+	this.tempWords = [];
 
 	function getGolden(golden) {
-		let auth = $cookies.get('authToken');
-		let id = $cookies.get('userId');
-
+	
 		return $http({
 			url: SERVER.URL + 'words/user/' + golden,
 			method: 'GET',
@@ -18,10 +22,7 @@ let WordService = function($http, SERVER, $cookies) {
 	}
 
 	function addWords(words, category) {
-		// console.log(words);
-		// console.log(category);
-		let auth = $cookies.get('authToken');
-
+		
 		let request = $http({
 			url: SERVER.URL + 'words/create',
 			method: 'POST',
@@ -38,11 +39,20 @@ let WordService = function($http, SERVER, $cookies) {
 	}
 
 	function getWords(category) {
-		let auth = $cookies.get('authToken');
 	
-
 		return $http({
 			url: SERVER.URL + 'words/user/' + category,
+			method: 'GET',
+			headers: {
+				access_token: auth
+			}
+		});
+	}
+
+	function searchWords(words, category){
+
+		return $http({
+			url: SERVER.URL + 'words/matches/' + category,
 			method: 'GET',
 			headers: {
 				access_token: auth

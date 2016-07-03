@@ -1,5 +1,9 @@
 <div>
 	<div>
 		<h3>Travel</h3>
+		<div ng-repeat="word in vm.words | limitTo:5">
+			<h3>{{word.word}}</h3>
+		</div>
+		<button ng-click="vm.matchWords(vm.words, 'travel')">Match</button>
 	</div>
 </div>
