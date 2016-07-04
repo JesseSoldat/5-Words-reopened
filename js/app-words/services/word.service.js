@@ -5,6 +5,7 @@ let WordService = function($http, SERVER, $cookies) {
 	this.getGolden = getGolden;
 	this.addWords = addWords;
 	this.getWords = getWords;
+	this.editWords = editWords;
 	this.searchWords = searchWords;
 
 	let tempWords;
@@ -58,6 +59,23 @@ let WordService = function($http, SERVER, $cookies) {
 				access_token: auth
 			}
 		});
+	}
+
+	function editWords(words, category) {
+		console.log('words');
+		let request = $http({
+			url: SERVER.URL + 'words/edit',
+			method: 'PUT',
+			headers: {
+				access_token: auth
+			},
+			data: words
+		});
+
+		return {
+			request: request,
+			category: category
+		}
 	}
 };
 

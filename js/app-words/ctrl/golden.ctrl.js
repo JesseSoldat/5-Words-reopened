@@ -1,6 +1,8 @@
 let GoldenCtrl = function($cookies, $state, WordService) {
 	let vm = this;
 
+	this.editWords = editWords;
+
 	checkAuth();
 	getGolden();
 
@@ -21,6 +23,10 @@ let GoldenCtrl = function($cookies, $state, WordService) {
 			vm.words = res.data;
 		})
 	};
+
+	function editWords(words, category) {
+		$state.go('root.edit', {category});
+	}
 
 };
 GoldenCtrl.$inject = ['$cookies', '$state', 'WordService'];

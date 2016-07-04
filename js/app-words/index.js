@@ -5,6 +5,7 @@ import 'angular-cookies';
 import GoldenCtrl from './ctrl/golden.ctrl';
 import RegisterCtrl from './ctrl/register.ctrl';
 import AddCtrl from './ctrl/add.ctrl';
+import EditCtrl from './ctrl/edit.ctrl';
 import MatchCtrl from './ctrl/match.ctrl';
 import TravelCtrl from './ctrl/travel.ctrl';
 
@@ -16,6 +17,7 @@ angular
 	.controller('GoldenCtrl', GoldenCtrl)
 	.controller('RegisterCtrl',RegisterCtrl)
 	.controller('AddCtrl', AddCtrl)
+	.controller('EditCtrl', EditCtrl)
 	.controller('MatchCtrl', MatchCtrl)
 	.controller('TravelCtrl', TravelCtrl)
 
