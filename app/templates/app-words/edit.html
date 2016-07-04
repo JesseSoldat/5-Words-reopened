@@ -1,6 +1,6 @@
 <div>
-	<form>
-		<input name="editForm" ng-repeat="word in vm.words">
+	<form ng-repeat="word in vm.words">
+		<input name="editForm" ng-model="word.word" >
 	</form>
 	<button ng-click="vm.editWords(vm.words)">Edit</button>
 </div>

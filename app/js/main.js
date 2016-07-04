@@ -269,33 +269,64 @@ exports['default'] = AddCtrl;
 module.exports = exports['default'];
 
 },{}],8:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var EditCtrl = function EditCtrl() {
+var EditCtrl = function EditCtrl(WordService, $stateParams, $state) {
 	var vm = this;
 
 	this.editWords = editWords;
 
+	getWords();
+
 	function getWords() {
 		var category = $stateParams.category;
 		WordService.getWords(category).then(function (res) {
-			console.log(res);
 			vm.words = res.data;
 		});
 	}
 
 	function editWords(words) {
-		console.log(words);
+		var category = words[0].category;
+
+		var wordArray = [];
+		var idArray = [];
+
+		if (words.length > 0) {
+			for (var i = 0; i < words.length; i++) {
+				wordArray.push(words[i].word.toLowerCase());
+				idArray.push(words[i].id);
+			}
+			console.log(wordArray);
+			console.log(idArray);
+		}
+		var wordData = [];
+
+		for (var i = 0; i < words.length; i++) {
+
+			wordData.push({ 'new': wordArray[i], id: idArray[i] });
+		}
+		console.log(wordData);
+
+		var data = {
+			words: wordData
+		};
+
+		var response = WordService.editWords(data, category);
+
+		response.request.then(function () {
+			var promise = response.category;
+			$state.go('root.' + promise);
+		});
 	}
 };
 
-EditCtrl.$inject = [];
+EditCtrl.$inject = ['WordService', '$stateParams', '$state'];
 
-exports["default"] = EditCtrl;
-module.exports = exports["default"];
+exports['default'] = EditCtrl;
+module.exports = exports['default'];
 
 },{}],9:[function(require,module,exports){
 'use strict';
