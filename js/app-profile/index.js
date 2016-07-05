@@ -5,6 +5,10 @@ import '../app-core/index';
 
 import AddFriendCtrl from './ctrl/add.friend.ctrl';
 import FriendsCtrl from './ctrl/friends.ctrl';
+import ProfileCtrl from './ctrl/profile.ctrl';
+import ProfileSideCtrl from './ctrl/profile.side.ctrl';
+import PhotosCtrl from './ctrl/photos.ctrl';
+import UserSingleImgCtrl from './ctrl/user.single.img.ctrl';
 
 import ProfileService from './services/profile.service';
 
@@ -13,6 +17,10 @@ angular
 
 	.controller('AddFriendCtrl', AddFriendCtrl)
 	.controller('FriendsCtrl', FriendsCtrl)
+	.controller('ProfileCtrl', ProfileCtrl)
+	.controller('ProfileSideCtrl', ProfileSideCtrl)
+	.controller('PhotosCtrl', PhotosCtrl)
+	.controller('UserSingleImgCtrl', UserSingleImgCtrl)
 
 	.service('ProfileService', ProfileService)
 

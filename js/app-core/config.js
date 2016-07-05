@@ -60,11 +60,26 @@ let config = function($urlRouterProvider, $stateProvider) {
 			
 		})
 		//app-profile
+		// CURRENT USERS MAIN PROFILE
+		.state('root.profile', {
+			url: '/profile',
+			views: {
+				sidebar: {
+					controller: 'ProfileSideCtrl as vm',
+					templateUrl: 'templates/app-profile/profile.side.html'
+				},
+				content: {
+					controller: 'ProfileCtrl as vm',
+					templateUrl: 'templates/app-profile/profile.main.html'
+				}
+			}
+		})
 		//ADD A FRIEND
 		.state('root.addFriends', {
 			url: '/add/friends/:name',
 			views: {
 				sidebar: {
+					controller: 'ProfileSideCtrl as vm',
 					templateUrl: 'templates/app-profile/profile.side.html'
 				},
 				content: {
@@ -79,11 +94,40 @@ let config = function($urlRouterProvider, $stateProvider) {
 			url: '/friends',
 			views: {
 				sidebar: {
+					controller: 'ProfileSideCtrl as vm',
 					templateUrl: 'templates/app-profile/profile.side.html'
 				},
 				content: {
 					templateUrl: 'templates/app-profile/friends.html',
 					controller: 'FriendsCtrl as vm'
+				}
+			}
+		})
+		// VIEW YOUR PHOTOS
+		.state('root.photos', {
+			url: '/photos',
+			views: {
+				sidebar: {
+					controller: 'ProfileSideCtrl as vm',
+					templateUrl: 'templates/app-profile/profile.side.html'
+				},
+				content: {
+					controller: 'PhotosCtrl as vm',
+					templateUrl: 'templates/app-profile/photos.html'
+				}
+			}
+			
+		})
+		.state('root.singlePhoto', {
+			url: '/photos/single/:id',
+			views: {
+				sidebar: {
+					controller: 'ProfileSideCtrl as vm',
+					templateUrl: 'templates/app-profile/profile.side.html'
+				},
+				content: {
+					controller: 'UserSingleImgCtrl as vm',
+					templateUrl: 'templates/app-profile/user.single.img.html'
 				}
 			}
 		})
