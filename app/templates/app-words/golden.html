@@ -1,8 +1,8 @@
-<div>
-	<div>
+<div class="goldenWrapper">
+	<div class="wordListWrapper goldPlate">
 		<h3>Golden</h3>
 
-		<div ng-repeat="word in vm.words | limitTo: 5">
+		<div class="wordList" ng-repeat="word in vm.words | limitTo: 5">
 			<h3>{{word.word}}</h3>
 		</div>
 		<button ng-click="vm.editWords(vm.words, 'golden')">Edit</button>

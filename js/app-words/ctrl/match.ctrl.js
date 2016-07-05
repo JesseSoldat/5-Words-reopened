@@ -32,7 +32,22 @@ let MatchCtrl = function(WordService, $state, $stateParams, $cookies){
 					let category = res.data[0].category;
 
 					WordService.searchWords(array, category).then( (res) => {
-						console.log(res.data);
+
+						let array = res.data;
+						// console.log(res.data);
+						let users = _.union(_.pluck(array, 'username'));
+						
+						let byUser = [];
+						_.each(users, function(user) {
+							let obj = {};
+							obj.user = user;
+							obj.words = _.where(array, {username: user});
+							byUser.push(obj);
+
+							vm.matches = byUser;
+
+
+						});
 					})
 
 				}

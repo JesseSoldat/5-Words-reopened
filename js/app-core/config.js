@@ -59,6 +59,20 @@ let config = function($urlRouterProvider, $stateProvider) {
 			}
 			
 		})
+		//app-profile
+		.state('root.addFriends', {
+			url: '/add/friends/:name',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-profile/profile.side.html'
+				},
+				content: {
+					controller: 'AddFriendCtrl as vm',
+					templateUrl: 'templates/app-profile/add.friend.html'
+				}	
+			}
+			
+		})
 
 
 

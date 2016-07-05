@@ -1,6 +1,7 @@
 let TravelCtrl = function(WordService, $state, $cookies) {
 
 	let vm = this;
+	this.editWords = editWords;
 	this.matchWords = matchWords;
 
 	getWords();
@@ -13,13 +14,17 @@ let TravelCtrl = function(WordService, $state, $cookies) {
 			let data = res.data.length;
 
 			if(data) {
-				console.log('Have Words');
+				
 			} else {
 				$state.go('root.add', {category})
 			}
 
 
 		});
+	}
+
+	function editWords(words, category) {
+		$state.go('root.edit', {category});
 	}
 
 	function matchWords(words, category) {

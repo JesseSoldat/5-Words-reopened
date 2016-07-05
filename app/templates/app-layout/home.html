@@ -1,10 +1,10 @@
-<div>
-	<div>
+<div class="homeWrapper">
+	<div class="homeBanner">
 		<h3>{{vm.title}}</h3>
 
 	</div>
-	<h3>Matching People by Words!</h3>
-	<div>
+	<h3 class="slogan">Matching People by Words!</h3>
+	<div class="loginFormWrap">
 		<h3>Login</h3>
 		<form name="loginForm" ng-submit="vm.login(userLog)">
 			<input type="text" placeholder="User Name" ng-model="userLog.username" required>
@@ -16,7 +16,7 @@
 	<br>
 	<br>
 
-	<div>
+	<div class="registerWrapper">
 		<h3>Register</h3>
 		<form name="registerForm" ng-submit="vm.register(userReg)">
 			<input type="email", placeholder="Email", ng-model="userReg.email" required>
