@@ -58,6 +58,7 @@ var config = function config($urlRouterProvider, $stateProvider) {
 
 	})
 	//app-profile
+	//ADD A FRIEND
 	.state('root.addFriends', {
 		url: '/add/friends/:name',
 		views: {
@@ -70,6 +71,19 @@ var config = function config($urlRouterProvider, $stateProvider) {
 			}
 		}
 
+	})
+	//VIEW YOUR FRIENDS
+	.state('root.friends', {
+		url: '/friends',
+		views: {
+			sidebar: {
+				templateUrl: 'templates/app-profile/profile.side.html'
+			},
+			content: {
+				templateUrl: 'templates/app-profile/friends.html',
+				controller: 'FriendsCtrl as vm'
+			}
+		}
 	});
 };
 
@@ -111,7 +125,7 @@ var _constantsServerConstant2 = _interopRequireDefault(_constantsServerConstant)
 
 _angular2['default'].module('app.core', ['ui.router']).config(_config2['default']).constant('SERVER', _constantsServerConstant2['default']);
 
-},{"./config":1,"./constants/server.constant":2,"angular":22,"angular-ui-router":20}],4:[function(require,module,exports){
+},{"./config":1,"./constants/server.constant":2,"angular":24,"angular-ui-router":22}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -182,7 +196,7 @@ var _servicesHomeService2 = _interopRequireDefault(_servicesHomeService);
 
 _angular2['default'].module('app.layout', ['ngCookies']).controller('HomeCtrl', _ctrlHomeCtrl2['default']).service('HomeService', _servicesHomeService2['default']);
 
-},{"./ctrl/home.ctrl":4,"./services/home.service":6,"angular":22,"angular-cookies":19}],6:[function(require,module,exports){
+},{"./ctrl/home.ctrl":4,"./services/home.service":6,"angular":24,"angular-cookies":21}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -243,16 +257,63 @@ module.exports = exports['default'];
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+	value: true
 });
-var AddFriendCtrl = function AddFriendCtrl($state, $staeParams, $cookies) {};
+var AddFriendCtrl = function AddFriendCtrl($state, $stateParams, $cookies, ProfileService) {
 
-AddFriendCtrl.$inject = ['$state', '$stateParams', '$cookies'];
+	var vm = this;
+	this.addFriend = addFriend;
+
+	var user = $stateParams.name;
+	console.log(user);
+
+	getBioPublic(user);
+
+	function getBioPublic(user) {
+		ProfileService.getBioPublic(user).then(function (res) {
+			console.log(res.data);
+			vm.bio = res.data;
+		});
+	}
+
+	function addFriend(user) {
+		ProfileService.addFriend(user).then(function (res) {
+			console.log(res);
+			$state.go('root.friends');
+		});
+	}
+};
+
+AddFriendCtrl.$inject = ['$state', '$stateParams', '$cookies', 'ProfileService'];
 
 exports['default'] = AddFriendCtrl;
 module.exports = exports['default'];
 
 },{}],8:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var FriendsCtrl = function FriendsCtrl($state, $cookies, ProfileService) {
+
+	var vm = this;
+
+	getFriends();
+
+	function getFriends() {
+		ProfileService.getFriends().then(function (res) {
+			vm.friends = res.data;
+			console.log(res.data);
+		});
+	}
+};
+FriendsCtrl.$inject = ['$state', '$cookies', 'ProfileService'];
+
+exports['default'] = FriendsCtrl;
+module.exports = exports['default'];
+
+},{}],9:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -269,9 +330,66 @@ var _ctrlAddFriendCtrl = require('./ctrl/add.friend.ctrl');
 
 var _ctrlAddFriendCtrl2 = _interopRequireDefault(_ctrlAddFriendCtrl);
 
-_angular2['default'].module('app.profile', ['app.core', 'ngCookies']).controller('AddFriendCtrl', _ctrlAddFriendCtrl2['default']);
+var _ctrlFriendsCtrl = require('./ctrl/friends.ctrl');
 
-},{"../app-core/index":3,"./ctrl/add.friend.ctrl":7,"angular":22,"angular-cookies":19}],9:[function(require,module,exports){
+var _ctrlFriendsCtrl2 = _interopRequireDefault(_ctrlFriendsCtrl);
+
+var _servicesProfileService = require('./services/profile.service');
+
+var _servicesProfileService2 = _interopRequireDefault(_servicesProfileService);
+
+_angular2['default'].module('app.profile', ['app.core', 'ngCookies']).controller('AddFriendCtrl', _ctrlAddFriendCtrl2['default']).controller('FriendsCtrl', _ctrlFriendsCtrl2['default']).service('ProfileService', _servicesProfileService2['default']);
+
+},{"../app-core/index":3,"./ctrl/add.friend.ctrl":7,"./ctrl/friends.ctrl":8,"./services/profile.service":10,"angular":24,"angular-cookies":21}],10:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var ProfileService = function ProfileService($http, SERVER, $cookies, $state) {
+
+	var auth = $cookies.get('authToken');
+
+	this.getBioPublic = getBioPublic;
+	this.getFriends = getFriends;
+	this.addFriend = addFriend;
+
+	function getBioPublic(user) {
+		return $http({
+			url: SERVER.URL + 'user/profile/public/' + user,
+			method: 'GET',
+			headers: {
+				access_token: auth
+			}
+		});
+	}
+
+	function getFriends() {
+		return $http({
+			url: SERVER.URL + 'user/friends',
+			method: 'GET',
+			headers: {
+				access_token: auth
+			}
+		});
+	}
+
+	function addFriend(user) {
+		return $http({
+			url: SERVER.URL + 'user/add_friend/' + user,
+			method: 'POST',
+			headers: {
+				access_token: auth
+			}
+		});
+	}
+};
+ProfileService.$inject = ['$http', 'SERVER', '$cookies', '$state'];
+
+exports['default'] = ProfileService;
+module.exports = exports['default'];
+
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -314,7 +432,7 @@ AddCtrl.$inject = ['$stateParams', '$state', '$cookies', 'WordService'];
 exports['default'] = AddCtrl;
 module.exports = exports['default'];
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -374,7 +492,7 @@ EditCtrl.$inject = ['WordService', '$stateParams', '$state'];
 exports['default'] = EditCtrl;
 module.exports = exports['default'];
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -415,7 +533,7 @@ GoldenCtrl.$inject = ['$cookies', '$state', 'WordService'];
 exports['default'] = GoldenCtrl;
 module.exports = exports['default'];
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -485,7 +603,7 @@ MatchCtrl.$inject = ['WordService', '$state', '$stateParams', '$cookies'];
 exports['default'] = MatchCtrl;
 module.exports = exports['default'];
 
-},{"underscore":23}],13:[function(require,module,exports){
+},{"underscore":25}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -510,7 +628,7 @@ RegisterCtrl.$inject = ['$state', 'HomeService', 'WordService'];
 exports['default'] = RegisterCtrl;
 module.exports = exports['default'];
 
-},{}],14:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -550,7 +668,7 @@ TravelCtrl.$inject = ['WordService', '$state', '$cookies'];
 exports['default'] = TravelCtrl;
 module.exports = exports['default'];
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -591,7 +709,7 @@ var _servicesWordService2 = _interopRequireDefault(_servicesWordService);
 
 _angular2['default'].module('app.words', ['ngCookies']).controller('GoldenCtrl', _ctrlGoldenCtrl2['default']).controller('RegisterCtrl', _ctrlRegisterCtrl2['default']).controller('AddCtrl', _ctrlAddCtrl2['default']).controller('EditCtrl', _ctrlEditCtrl2['default']).controller('MatchCtrl', _ctrlMatchCtrl2['default']).controller('TravelCtrl', _ctrlTravelCtrl2['default']).service('WordService', _servicesWordService2['default']);
 
-},{"./ctrl/add.ctrl":9,"./ctrl/edit.ctrl":10,"./ctrl/golden.ctrl":11,"./ctrl/match.ctrl":12,"./ctrl/register.ctrl":13,"./ctrl/travel.ctrl":14,"./services/word.service":16,"angular":22,"angular-cookies":19}],16:[function(require,module,exports){
+},{"./ctrl/add.ctrl":11,"./ctrl/edit.ctrl":12,"./ctrl/golden.ctrl":13,"./ctrl/match.ctrl":14,"./ctrl/register.ctrl":15,"./ctrl/travel.ctrl":16,"./services/word.service":18,"angular":24,"angular-cookies":21}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -683,7 +801,7 @@ WordService.$inject = ['$http', 'SERVER', '$cookies'];
 exports['default'] = WordService;
 module.exports = exports['default'];
 
-},{}],17:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -702,7 +820,7 @@ require('./app-profile/index');
 
 _angular2['default'].module('app', ['app.core', 'app.layout', 'app.words', 'app.profile']);
 
-},{"./app-core/index":3,"./app-layout/index":5,"./app-profile/index":8,"./app-words/index":15,"angular":22}],18:[function(require,module,exports){
+},{"./app-core/index":3,"./app-layout/index":5,"./app-profile/index":9,"./app-words/index":17,"angular":24}],20:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1026,11 +1144,11 @@ angular.module('ngCookies').provider('$$cookieWriter', function $$CookieWriterPr
 
 })(window, window.angular);
 
-},{}],19:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 require('./angular-cookies');
 module.exports = 'ngCookies';
 
-},{"./angular-cookies":18}],20:[function(require,module,exports){
+},{"./angular-cookies":20}],22:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.18
@@ -5570,7 +5688,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -37044,11 +37162,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":21}],23:[function(require,module,exports){
+},{"./angular":23}],25:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -38598,7 +38716,7 @@ module.exports = angular;
   }
 }.call(this));
 
-},{}]},{},[17])
+},{}]},{},[19])
 
 
 //# sourceMappingURL=main.js.map
