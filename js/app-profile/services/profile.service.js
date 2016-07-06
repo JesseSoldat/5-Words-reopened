@@ -15,6 +15,7 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 	this.getPhotos = getPhotos;
 	this.getPhoto = getPhoto;
 	this.sendPhoto = sendPhoto;
+	this.sendAvatar = sendAvatar;
 	this.deleteImg =deleteImg;
 
 
@@ -113,7 +114,7 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 	}
 
 	function sendPhoto(file){
-		console.log(file);
+		
 		addPhoto(file).then( (res) => {
 			$state.go('root.photos')
 		})
@@ -133,6 +134,30 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 			},
 			data: formData
 		});
+	}
+
+	function sendAvatar(file) {
+		addAvatar(file).then( (res) => {
+			console.log('uploaded');
+			$state.go('root.profile');
+		});
+	}
+
+	function addAvatar(file) {
+
+		let formData = new FormData();
+		formData.append('avatar', file);
+
+		return $http({
+			url: SERVER.URL + 'user/avatar',
+			method: 'PUT',
+			headers: {
+				'Content-Type' : undefined,
+				access_token: auth
+			},
+			data: formData
+		});
+
 	}
 
 	function deleteImg(id){

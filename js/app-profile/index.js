@@ -16,6 +16,7 @@ import UserSingleImgCtrl from './ctrl/user.single.img.ctrl';
 import ProfileService from './services/profile.service';
 
 import fileUpload from './directives/file.upload.directive.js';
+import avatarUpload from './directives/avatar.upload.directive.js';
 
 angular
 	.module('app.profile', ['app.core','ngCookies'])
@@ -33,4 +34,5 @@ angular
 	.service('ProfileService', ProfileService)
 
 	.directive('fileUpload', fileUpload)
+	.directive('avatarUpload', avatarUpload)
 ;

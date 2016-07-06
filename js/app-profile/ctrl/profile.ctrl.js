@@ -3,6 +3,7 @@ let ProfileCtrl = function($state, $cookies, ProfileService){
 	let vm = this;
 
 	this.editBio = editBio;
+	this.editAvatar = editAvatar;
 
 	getBioPrivate();
 
@@ -15,6 +16,10 @@ let ProfileCtrl = function($state, $cookies, ProfileService){
 
 	function editBio() {
 		$state.go('root.profileEdit');
+	}
+
+	function editAvatar() {
+		$state.go('root.photosAdd');
 	}
 
 };
