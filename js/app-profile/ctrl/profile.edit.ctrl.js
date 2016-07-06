@@ -22,6 +22,10 @@ let ProfileEditCtrl = function(ProfileService, $state){
 
 	function editBio(bio){
 		console.log(bio);
+		ProfileService.editBio(bio).then( (res) => {
+			$state.go('root.profile');
+
+		});
 	}
 
 

@@ -402,12 +402,18 @@ var ProfileCtrl = function ProfileCtrl($state, $cookies, ProfileService) {
 
 	var vm = this;
 
+	this.editBio = editBio;
+
 	getBioPrivate();
 
 	function getBioPrivate() {
 		ProfileService.getBioPrivate().then(function (res) {
 			vm.bio = res.data;
 		});
+	}
+
+	function editBio() {
+		$state.go('root.profileEdit');
 	}
 };
 ProfileCtrl.$inject = ['$state', '$cookies', 'ProfileService'];
@@ -444,6 +450,9 @@ var ProfileEditCtrl = function ProfileEditCtrl(ProfileService, $state) {
 
 	function editBio(bio) {
 		console.log(bio);
+		ProfileService.editBio(bio).then(function (res) {
+			$state.go('root.profile');
+		});
 	}
 };
 
@@ -565,6 +574,7 @@ var ProfileService = function ProfileService($http, SERVER, $cookies, $state) {
 
 	this.getBioPublic = getBioPublic;
 	this.getBioPrivate = getBioPrivate;
+	this.editBio = editBio;
 	this.getFriends = getFriends;
 	this.addFriend = addFriend;
 	this.getPhotos = getPhotos;
@@ -588,6 +598,17 @@ var ProfileService = function ProfileService($http, SERVER, $cookies, $state) {
 			headers: {
 				access_token: auth
 			}
+		});
+	}
+
+	function editBio(bio) {
+		return $http({
+			url: SERVER.URL + 'user/edit',
+			method: 'PUT',
+			headers: {
+				access_token: auth
+			},
+			data: bio
 		});
 	}
 

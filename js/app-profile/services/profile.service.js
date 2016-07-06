@@ -7,6 +7,7 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 
 	this.getBioPublic = getBioPublic;
 	this.getBioPrivate = getBioPrivate;
+	this.editBio = editBio;
 	this.getFriends = getFriends;
 	this.addFriend = addFriend;
 	this.getPhotos = getPhotos;
@@ -33,6 +34,19 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 			}
 		});
 	}
+
+	function editBio(bio){
+		return $http({
+			url: SERVER.URL + 'user/edit',
+			method: 'PUT',
+			headers: {
+				access_token: auth
+			},
+			data: bio
+		});
+	}
+
+
 
 	function getFriends() {
 		return $http({
