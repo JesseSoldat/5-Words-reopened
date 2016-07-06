@@ -11,8 +11,10 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 	this.getFriends = getFriends;
 	this.getFriendsPic = getFriendsPic;
 	this.addFriend = addFriend;
+	this.deleteFriend = deleteFriend;
 	this.getPhotos = getPhotos;
 	this.getPhoto = getPhoto;
+	this.sendPhoto = sendPhoto;
 	this.deleteImg =deleteImg;
 
 
@@ -69,8 +71,18 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 		});
 	}
 
+	function deleteFriend(user){
+		return $http({
+			url: SERVER.URL + 'friend/destroy/' + user,
+			method: 'DELETE',
+			headers: {
+				access_token: auth
+			}
+		});
+	}
+
 	function getFriendsPic(user) {
-		
+
 		return $http({
 			url: SERVER.URL + 'friend/gallery/' + user,
 			method: 'GET',
@@ -97,6 +109,29 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 			headers: {
 				access_token: auth
 			}
+		});
+	}
+
+	function sendPhoto(file){
+		console.log(file);
+		addPhoto(file).then( (res) => {
+			$state.go('root.photos')
+		})
+	}
+
+	function addPhoto(file){
+		let formData = new FormData();
+		formData.append('image', file);
+		formData.append('title', 'photo');
+
+		return $http({
+			url: SERVER.URL + 'user/gallery',
+			method: 'POST',
+			headers: {
+				'Content-Type': undefined,
+				access_token: auth
+			},
+			data: formData
 		});
 	}
 

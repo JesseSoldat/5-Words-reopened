@@ -144,6 +144,19 @@ let config = function($urlRouterProvider, $stateProvider) {
 			}
 			
 		})
+		.state('root.photosAdd', {
+			url: '/photos/add',
+			views: {
+				sidebar: {
+					controller: 'ProfileSideCtrl as vm',
+					templateUrl: 'templates/app-profile/profile.side.html'
+				},
+				content: {
+					controller: 'PhotosAddCtrl as vm',
+					templateUrl: 'templates/app-profile/photos.add.html'
+				}
+			}
+		})
 		.state('root.singlePhoto', {
 			url: '/photos/single/:id',
 			views: {

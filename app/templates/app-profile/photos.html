@@ -1,5 +1,5 @@
 <div>
-	<button>Add</button>
+	<button ng-click="vm.goTo('photosAdd')">Add</button>
 	<h3>Click on any image to view or delete it</h3>
 	<div ng-repeat="photo in vm.photos">
 		<a href="#/photos/single/{{photo.id}}">
