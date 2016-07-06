@@ -2,6 +2,9 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 
 	let auth = $cookies.get('authToken');
 
+	let tempBio;
+	this.tempBio = [];
+
 	this.getBioPublic = getBioPublic;
 	this.getBioPrivate = getBioPrivate;
 	this.getFriends = getFriends;
