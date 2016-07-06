@@ -9,6 +9,7 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 	this.getBioPrivate = getBioPrivate;
 	this.editBio = editBio;
 	this.getFriends = getFriends;
+	this.getFriendsPic = getFriendsPic;
 	this.addFriend = addFriend;
 	this.getPhotos = getPhotos;
 	this.getPhoto = getPhoto;
@@ -62,6 +63,17 @@ let ProfileService = function($http, SERVER, $cookies, $state){
 		return $http({
 			url: SERVER.URL + 'user/add_friend/' + user,
 			method: 'POST',
+			headers: {
+				access_token: auth
+			}
+		});
+	}
+
+	function getFriendsPic(user) {
+		
+		return $http({
+			url: SERVER.URL + 'friend/gallery/' + user,
+			method: 'GET',
 			headers: {
 				access_token: auth
 			}

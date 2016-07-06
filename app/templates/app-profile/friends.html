@@ -1,6 +1,17 @@
 <div ng-repeat="friend in vm.friends">
 	<div>
 		<h3>{{friend.username}}</h3>
-
+		<a href="#/friends/pic/{{friend.username}}">
+			<h3>Pictures</h3>
+		</a>
+		<h3>|</h3>
+		<a href="#/friends/add/{{friend.username}}">
+			<h3>Profile</h3>
+		</a>
+	</div>
+	<div>
+		<a href="#">
+			<h3 ng-click="vm.deleteFriend(friend.username)">Delete {{friend.username}}</h3>
+		</a>
 	</div>
 </div>

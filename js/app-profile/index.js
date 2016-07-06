@@ -5,6 +5,7 @@ import '../app-core/index';
 
 import AddFriendCtrl from './ctrl/add.friend.ctrl';
 import FriendsCtrl from './ctrl/friends.ctrl';
+import FriendsPhotosCtrl from './ctrl/friends.photos.ctrl';
 import ProfileCtrl from './ctrl/profile.ctrl';
 import ProfileSideCtrl from './ctrl/profile.side.ctrl';
 import ProfileEditCtrl from './ctrl/profile.edit.ctrl';
@@ -18,6 +19,7 @@ angular
 
 	.controller('AddFriendCtrl', AddFriendCtrl)
 	.controller('FriendsCtrl', FriendsCtrl)
+	.controller('FriendsPhotosCtrl', FriendsPhotosCtrl)
 	.controller('ProfileCtrl', ProfileCtrl)
 	.controller('ProfileEditCtrl', ProfileEditCtrl)
 	.controller('ProfileSideCtrl', ProfileSideCtrl)

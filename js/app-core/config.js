@@ -116,6 +116,19 @@ let config = function($urlRouterProvider, $stateProvider) {
 				}
 			}
 		})
+		.state('root.friendsPhotos', {
+			url: '/friends/pic/:username',
+			views: {
+				sidebar: {
+					controller: 'ProfileSideCtrl as vm',
+					templateUrl: 'templates/app-profile/profile.side.html'
+				},
+				content: {
+					controller: 'FriendsPhotosCtrl as vm',
+					templateUrl: 'templates/app-profile/friends.photos.html'
+				}
+			}
+		})
 		// VIEW YOUR PHOTOS
 		.state('root.photos', {
 			url: '/photos',
