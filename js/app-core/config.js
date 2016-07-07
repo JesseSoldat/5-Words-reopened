@@ -44,6 +44,18 @@ let config = function($urlRouterProvider, $stateProvider) {
 			}
 			
 		})
+		.state('root.tech', {
+			url: '/tech',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-words/dash.side.html'
+				},
+				content: {
+					controller: 'TechCtrl as vm',
+					templateUrl: 'templates/app-words/tech.html'
+				}
+			}
+		})
 		.state('root.books', {
 			url: '/books',
 			views: {
