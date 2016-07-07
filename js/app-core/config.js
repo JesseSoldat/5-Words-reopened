@@ -31,6 +31,31 @@ let config = function($urlRouterProvider, $stateProvider) {
 				}
 			}
 		})
+		.state('root.travel', {
+			url: '/travel',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-words/dash.side.html'
+				},
+				content: {
+					controller: 'TravelCtrl as vm',
+					templateUrl: 'templates/app-words/travel.html'
+				}
+			}
+			
+		})
+		.state('root.books', {
+			url: '/books',
+			views: {
+				sidebar: {
+
+				},
+				content: {
+					controller: 'BookCtrl as vm',
+					templateUrl: 'templates/app-words/books.html'
+				}
+			}
+		})
 		.state('root.add', {
 			url: '/add/:category',
 			controller: 'AddCtrl as vm',
@@ -46,19 +71,7 @@ let config = function($urlRouterProvider, $stateProvider) {
 			controller: 'MatchCtrl as vm',
 			templateUrl: 'templates/app-words/match.html'
 		})
-		.state('root.travel', {
-			url: '/travel',
-			views: {
-				sidebar: {
-					templateUrl: 'templates/app-words/dash.side.html'
-				},
-				content: {
-					controller: 'TravelCtrl as vm',
-					templateUrl: 'templates/app-words/travel.html'
-				}
-			}
-			
-		})
+		
 		//app-profile
 		// CURRENT USERS MAIN PROFILE
 		.state('root.profile', {
