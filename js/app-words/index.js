@@ -8,6 +8,7 @@ import AddCtrl from './ctrl/add.ctrl';
 import EditCtrl from './ctrl/edit.ctrl';
 import MatchCtrl from './ctrl/match.ctrl';
 import TravelCtrl from './ctrl/travel.ctrl';
+import CarCtrl from './ctrl/car.ctrl';
 import BookCtrl from './ctrl/book.ctrl';
 
 import WordService from './services/word.service'
@@ -18,6 +19,7 @@ angular
 	.controller('GoldenCtrl', GoldenCtrl)
 	.controller('TravelCtrl', TravelCtrl)
 	.controller('BookCtrl', BookCtrl)
+	.controller('CarCtrl', CarCtrl)
 	.controller('RegisterCtrl',RegisterCtrl)
 	.controller('AddCtrl', AddCtrl)
 	.controller('EditCtrl', EditCtrl)

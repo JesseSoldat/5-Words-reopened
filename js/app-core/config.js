@@ -48,12 +48,25 @@ let config = function($urlRouterProvider, $stateProvider) {
 			url: '/books',
 			views: {
 				sidebar: {
-
+					templateUrl: 'templates/app-words/dash.side.html'
 				},
 				content: {
 					controller: 'BookCtrl as vm',
 					templateUrl: 'templates/app-words/books.html'
 				}
+			}
+		})
+		.state ('root.cars', {
+			url: '/cars',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-words/dash.side.html'
+				},
+				content: {
+					controller: 'CarCtrl as vm',
+					templateUrl: 'templates/app-words/cars.html'
+				}
+
 			}
 		})
 		.state('root.add', {

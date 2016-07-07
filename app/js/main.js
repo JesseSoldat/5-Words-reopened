@@ -47,11 +47,25 @@ var config = function config($urlRouterProvider, $stateProvider) {
 	}).state('root.books', {
 		url: '/books',
 		views: {
-			sidebar: {},
+			sidebar: {
+				templateUrl: 'templates/app-words/dash.side.html'
+			},
 			content: {
 				controller: 'BookCtrl as vm',
 				templateUrl: 'templates/app-words/books.html'
 			}
+		}
+	}).state('root.cars', {
+		url: '/cars',
+		views: {
+			sidebar: {
+				templateUrl: 'templates/app-words/dash.side.html'
+			},
+			content: {
+				controller: 'CarCtrl as vm',
+				templateUrl: 'templates/app-words/cars.html'
+			}
+
 		}
 	}).state('root.add', {
 		url: '/add/:category',
@@ -214,7 +228,7 @@ var _constantsServerConstant2 = _interopRequireDefault(_constantsServerConstant)
 
 _angular2['default'].module('app.core', ['ui.router']).config(_config2['default']).constant('SERVER', _constantsServerConstant2['default']);
 
-},{"./config":1,"./constants/server.constant":2,"angular":34,"angular-ui-router":32}],4:[function(require,module,exports){
+},{"./config":1,"./constants/server.constant":2,"angular":35,"angular-ui-router":33}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -285,7 +299,7 @@ var _servicesHomeService2 = _interopRequireDefault(_servicesHomeService);
 
 _angular2['default'].module('app.layout', ['ngCookies']).controller('HomeCtrl', _ctrlHomeCtrl2['default']).service('HomeService', _servicesHomeService2['default']);
 
-},{"./ctrl/home.ctrl":4,"./services/home.service":6,"angular":34,"angular-cookies":31}],6:[function(require,module,exports){
+},{"./ctrl/home.ctrl":4,"./services/home.service":6,"angular":35,"angular-cookies":32}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -739,7 +753,7 @@ var _directivesAvatarUploadDirectiveJs2 = _interopRequireDefault(_directivesAvat
 
 _angular2['default'].module('app.profile', ['app.core', 'ngCookies']).controller('AddFriendCtrl', _ctrlAddFriendCtrl2['default']).controller('FriendsCtrl', _ctrlFriendsCtrl2['default']).controller('FriendsPhotosCtrl', _ctrlFriendsPhotosCtrl2['default']).controller('ProfileCtrl', _ctrlProfileCtrl2['default']).controller('ProfileEditCtrl', _ctrlProfileEditCtrl2['default']).controller('ProfileSideCtrl', _ctrlProfileSideCtrl2['default']).controller('PhotosCtrl', _ctrlPhotosCtrl2['default']).controller('PhotosAddCtrl', _ctrlPhotosAddCtrl2['default']).controller('UserSingleImgCtrl', _ctrlUserSingleImgCtrl2['default']).service('ProfileService', _servicesProfileService2['default']).directive('fileUpload', _directivesFileUploadDirectiveJs2['default']).directive('avatarUpload', _directivesAvatarUploadDirectiveJs2['default']);
 
-},{"../app-core/index":3,"./ctrl/add.friend.ctrl":7,"./ctrl/friends.ctrl":8,"./ctrl/friends.photos.ctrl":9,"./ctrl/photos.add.ctrl":10,"./ctrl/photos.ctrl":11,"./ctrl/profile.ctrl":12,"./ctrl/profile.edit.ctrl":13,"./ctrl/profile.side.ctrl":14,"./ctrl/user.single.img.ctrl":15,"./directives/avatar.upload.directive.js":16,"./directives/file.upload.directive.js":17,"./services/profile.service":19,"angular":34,"angular-cookies":31}],19:[function(require,module,exports){
+},{"../app-core/index":3,"./ctrl/add.friend.ctrl":7,"./ctrl/friends.ctrl":8,"./ctrl/friends.photos.ctrl":9,"./ctrl/photos.add.ctrl":10,"./ctrl/photos.ctrl":11,"./ctrl/profile.ctrl":12,"./ctrl/profile.edit.ctrl":13,"./ctrl/profile.side.ctrl":14,"./ctrl/user.single.img.ctrl":15,"./directives/avatar.upload.directive.js":16,"./directives/file.upload.directive.js":17,"./services/profile.service":19,"angular":35,"angular-cookies":32}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1002,6 +1016,40 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
+var CarCtrl = function CarCtrl(WordService, $state) {
+	var vm = this;
+	var category = 'cars';
+
+	this.editWords = editWords;
+	this.matchWords = matchWords;
+
+	getWords();
+
+	function getWords() {
+		WordService.getWords(category).then(function (res) {
+			vm.words = res.data;
+		});
+	}
+
+	function editWords(words) {
+		$state.go('root.edit', { category: category });
+	}
+
+	function matchWords(words) {
+		$state.go('root.match', { category: category });
+	}
+};
+CarCtrl.$inject = ['WordService', '$state'];
+
+exports['default'] = CarCtrl;
+module.exports = exports['default'];
+
+},{}],23:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
 var EditCtrl = function EditCtrl(WordService, $stateParams, $state) {
 	var vm = this;
 
@@ -1056,7 +1104,7 @@ EditCtrl.$inject = ['WordService', '$stateParams', '$state'];
 exports['default'] = EditCtrl;
 module.exports = exports['default'];
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1094,7 +1142,7 @@ GoldenCtrl.$inject = ['$cookies', '$state', 'WordService'];
 exports['default'] = GoldenCtrl;
 module.exports = exports['default'];
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1164,7 +1212,7 @@ MatchCtrl.$inject = ['WordService', '$state', '$stateParams', '$cookies'];
 exports['default'] = MatchCtrl;
 module.exports = exports['default'];
 
-},{"underscore":35}],25:[function(require,module,exports){
+},{"underscore":36}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1189,7 +1237,7 @@ RegisterCtrl.$inject = ['$state', 'HomeService', 'WordService'];
 exports['default'] = RegisterCtrl;
 module.exports = exports['default'];
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1229,7 +1277,7 @@ TravelCtrl.$inject = ['WordService', '$state', '$cookies'];
 exports['default'] = TravelCtrl;
 module.exports = exports['default'];
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -1264,6 +1312,10 @@ var _ctrlTravelCtrl = require('./ctrl/travel.ctrl');
 
 var _ctrlTravelCtrl2 = _interopRequireDefault(_ctrlTravelCtrl);
 
+var _ctrlCarCtrl = require('./ctrl/car.ctrl');
+
+var _ctrlCarCtrl2 = _interopRequireDefault(_ctrlCarCtrl);
+
 var _ctrlBookCtrl = require('./ctrl/book.ctrl');
 
 var _ctrlBookCtrl2 = _interopRequireDefault(_ctrlBookCtrl);
@@ -1272,9 +1324,9 @@ var _servicesWordService = require('./services/word.service');
 
 var _servicesWordService2 = _interopRequireDefault(_servicesWordService);
 
-_angular2['default'].module('app.words', ['ngCookies']).controller('GoldenCtrl', _ctrlGoldenCtrl2['default']).controller('TravelCtrl', _ctrlTravelCtrl2['default']).controller('BookCtrl', _ctrlBookCtrl2['default']).controller('RegisterCtrl', _ctrlRegisterCtrl2['default']).controller('AddCtrl', _ctrlAddCtrl2['default']).controller('EditCtrl', _ctrlEditCtrl2['default']).controller('MatchCtrl', _ctrlMatchCtrl2['default']).service('WordService', _servicesWordService2['default']);
+_angular2['default'].module('app.words', ['ngCookies']).controller('GoldenCtrl', _ctrlGoldenCtrl2['default']).controller('TravelCtrl', _ctrlTravelCtrl2['default']).controller('BookCtrl', _ctrlBookCtrl2['default']).controller('CarCtrl', _ctrlCarCtrl2['default']).controller('RegisterCtrl', _ctrlRegisterCtrl2['default']).controller('AddCtrl', _ctrlAddCtrl2['default']).controller('EditCtrl', _ctrlEditCtrl2['default']).controller('MatchCtrl', _ctrlMatchCtrl2['default']).service('WordService', _servicesWordService2['default']);
 
-},{"./ctrl/add.ctrl":20,"./ctrl/book.ctrl":21,"./ctrl/edit.ctrl":22,"./ctrl/golden.ctrl":23,"./ctrl/match.ctrl":24,"./ctrl/register.ctrl":25,"./ctrl/travel.ctrl":26,"./services/word.service":28,"angular":34,"angular-cookies":31}],28:[function(require,module,exports){
+},{"./ctrl/add.ctrl":20,"./ctrl/book.ctrl":21,"./ctrl/car.ctrl":22,"./ctrl/edit.ctrl":23,"./ctrl/golden.ctrl":24,"./ctrl/match.ctrl":25,"./ctrl/register.ctrl":26,"./ctrl/travel.ctrl":27,"./services/word.service":29,"angular":35,"angular-cookies":32}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1366,7 +1418,7 @@ WordService.$inject = ['$http', 'SERVER', '$cookies'];
 exports['default'] = WordService;
 module.exports = exports['default'];
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -1385,7 +1437,7 @@ require('./app-profile/index');
 
 _angular2['default'].module('app', ['app.core', 'app.layout', 'app.words', 'app.profile']);
 
-},{"./app-core/index":3,"./app-layout/index":5,"./app-profile/index":18,"./app-words/index":27,"angular":34}],30:[function(require,module,exports){
+},{"./app-core/index":3,"./app-layout/index":5,"./app-profile/index":18,"./app-words/index":28,"angular":35}],31:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -1709,11 +1761,11 @@ angular.module('ngCookies').provider('$$cookieWriter', function $$CookieWriterPr
 
 })(window, window.angular);
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 require('./angular-cookies');
 module.exports = 'ngCookies';
 
-},{"./angular-cookies":30}],32:[function(require,module,exports){
+},{"./angular-cookies":31}],33:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.18
@@ -6253,7 +6305,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -37727,11 +37779,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":33}],35:[function(require,module,exports){
+},{"./angular":34}],36:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -39281,7 +39333,7 @@ module.exports = angular;
   }
 }.call(this));
 
-},{}]},{},[29])
+},{}]},{},[30])
 
 
 //# sourceMappingURL=main.js.map
