@@ -23,8 +23,8 @@ let EditCtrl = function(WordService, $stateParams, $state) {
 				wordArray.push(words[i].word.toLowerCase());
 				idArray.push(words[i].id);
 			}
-			console.log(wordArray);
-			console.log(idArray);	
+			// console.log(wordArray);
+			// console.log(idArray);	
 		}
 	let wordData = [];
 

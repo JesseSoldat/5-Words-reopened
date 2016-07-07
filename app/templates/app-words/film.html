@@ -1,0 +1,10 @@
+<div>
+	<div>
+		<h3>Film</h3>
+		<div ng-repeat="word in vm.words | limitTo:5">
+			<h3>{{word.word}}</h3>
+		</div>
+		<button ng-click="vm.matchWords(words)">Match</button>
+		<button ng-click="vm.editWords(words)">Edit</button>
+	</div>
+</div>

@@ -11,6 +11,8 @@ import TravelCtrl from './ctrl/travel.ctrl';
 import TechCtrl from './ctrl/tech.ctrl';
 import CarCtrl from './ctrl/car.ctrl';
 import BookCtrl from './ctrl/book.ctrl';
+import FilmCtrl from './ctrl/film.ctrl';
+
 
 import WordService from './services/word.service'
 
@@ -22,6 +24,7 @@ angular
 	.controller('TechCtrl', TechCtrl)
 	.controller('BookCtrl', BookCtrl)
 	.controller('CarCtrl', CarCtrl)
+	.controller('FilmCtrl', FilmCtrl)
 	.controller('RegisterCtrl',RegisterCtrl)
 	.controller('AddCtrl', AddCtrl)
 	.controller('EditCtrl', EditCtrl)

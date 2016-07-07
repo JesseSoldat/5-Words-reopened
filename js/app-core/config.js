@@ -56,6 +56,18 @@ let config = function($urlRouterProvider, $stateProvider) {
 				}
 			}
 		})
+		.state('root.film', {
+			url: '/film',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-words/dash.side.html'
+				},
+				content: {
+					controller: 'FilmCtrl as vm',
+					templateUrl: 'templates/app-words/film.html'
+				}
+			}
+		})
 		.state('root.books', {
 			url: '/books',
 			views: {
