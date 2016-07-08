@@ -1,6 +1,7 @@
 let TravelCtrl = function(WordService, $state, $cookies) {
 
 	let vm = this;
+	let category = 'travel';
 	this.editWords = editWords;
 	this.matchWords = matchWords;
 
@@ -23,11 +24,11 @@ let TravelCtrl = function(WordService, $state, $cookies) {
 		});
 	}
 
-	function editWords(words, category) {
+	function editWords() {
 		$state.go('root.edit', {category});
 	}
 
-	function matchWords(words, category) {
+	function matchWords() {
 		$state.go('root.match', {category})
 	}
 

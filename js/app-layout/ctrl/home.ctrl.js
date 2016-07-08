@@ -10,7 +10,6 @@ let HomeCtrl = function(HomeService, $cookies, $state) {
 
 	function login(user) {
 		HomeService.login(user).then( (res) => {
-			console.log(res);
 			let auth = $cookies.put('authToken', res.data.access_token);
 			let userId = $cookies.put('userId', res.data.id);
 

@@ -35,7 +35,7 @@ let EditCtrl = function(WordService, $stateParams, $state) {
 			);
 			
 	}
-	console.log(wordData);
+	
 
 	let data = {
 		words: wordData

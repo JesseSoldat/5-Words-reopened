@@ -62,7 +62,7 @@ let WordService = function($http, SERVER, $cookies) {
 	}
 
 	function editWords(words, category) {
-		console.log('words');
+		
 		let request = $http({
 			url: SERVER.URL + 'words/edit',
 			method: 'PUT',

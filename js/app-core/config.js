@@ -68,6 +68,18 @@ let config = function($urlRouterProvider, $stateProvider) {
 				}
 			}
 		})
+		.state('root.foodie', {
+			url: '/foodie',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-words/dash.side.html'
+				},
+				content: {
+					controller: 'FoodieCtrl as vm',
+					templateUrl: 'templates/app-words/foodie.html'
+				}
+			}
+		})
 		.state('root.books', {
 			url: '/books',
 			views: {
@@ -91,6 +103,18 @@ let config = function($urlRouterProvider, $stateProvider) {
 					templateUrl: 'templates/app-words/cars.html'
 				}
 
+			}
+		})
+		.state('root.music', {
+			url: '/music',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-words/dash.side.html'
+				},
+				content: {
+					controller: 'MusicCtrl as vm',
+					templateUrl: 'templates/app-words/music.html'
+				}
 			}
 		})
 		.state('root.add', {
