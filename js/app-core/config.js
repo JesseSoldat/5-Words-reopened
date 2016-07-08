@@ -105,6 +105,18 @@ let config = function($urlRouterProvider, $stateProvider) {
 
 			}
 		})
+		.state('root.pets', {
+			url: '/pets',
+			views: {
+				sidebar: {
+					templateUrl: 'templates/app-words/dash.side.html'
+				},
+				content: {
+					controller: 'PetsCtrl as vm',
+					templateUrl: 'templates/app-words/pets.html'
+				}
+			}
+		})
 		.state('root.music', {
 			url: '/music',
 			views: {

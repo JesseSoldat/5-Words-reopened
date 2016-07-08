@@ -14,7 +14,7 @@ import BookCtrl from './ctrl/book.ctrl';
 import FilmCtrl from './ctrl/film.ctrl';
 import FoodieCtrl from './ctrl/foodie.ctrl';
 import MusicCtrl from './ctrl/music.ctrl';
-
+import PetsCtrl from './ctrl/pets.ctrl';
 
 import WordService from './services/word.service'
 
@@ -29,6 +29,7 @@ angular
 	.controller('FilmCtrl', FilmCtrl)
 	.controller('FoodieCtrl', FoodieCtrl)
 	.controller('MusicCtrl', MusicCtrl)
+	.controller('PetsCtrl', PetsCtrl)
 	
 	.controller('RegisterCtrl',RegisterCtrl)
 	.controller('AddCtrl', AddCtrl)
